@@ -1,4 +1,3 @@
-# Adventure
 import java.util.Scanner;
 
 public class Adventure {
@@ -20,9 +19,6 @@ public class Adventure {
             choice3();
         }
     }
-
-
-
 
 
 
@@ -127,9 +123,18 @@ public class Adventure {
             }
         }
         else { //attack
-            int c = fourC();
+            int c = fourC(); //attack?
+            if(c == 1) { //survive
+                System.out.println("After your encounter, you're ruffed up but still alive. Which direction do you head?");
+                System.out.println("1. Right \n2. Left");
 
+                int ans3 = userInput.nextInt();
 
+                choicesOneA(ans3);
+            }
+            else if(c == 2) { //hurt leg
+
+            }
         }
     }
 
@@ -142,8 +147,23 @@ public class Adventure {
                 if(d == 1) { //sit by river
                     int e;
                 }
-                else{ //go towards trees
-                    int e;
+                else { //go towards trees
+                    int e = fourA(); //right or food?
+                    if(e == 1) { //right
+                        endingA(); //WINNER
+                    }
+                    else { //food
+                        int f = fiveA(); //berries?
+                        if(f == 1) { //eat
+                            int g;
+                        }
+                        else if(f == 2) { //don't eat
+                            int g;
+                        }
+                        else { //walk
+                            endingA();//WINNER
+                        }
+                    }
                 }
             }
             else if(c == 2) { //stop
@@ -302,36 +322,56 @@ public class Adventure {
                 "          J \\,       (_o\n" +
                 "           '\"");
         System.out.println("The bear runs at you. What do you do?");
-        System.out.println("1. Turn and run! \n2. Grab a branch to fight with \nGo for the eyes");
+        System.out.println("1. Turn and run! \n2. Grab a branch to fight with \nGo for the eyes!");
 
         Scanner userInput = new Scanner(System.in);
         int ans = userInput.nextInt();
 
         int a = 0;
-        if(a == 1) {
+        if(ans == 1) { //run
             gameOver();
-        } else if(a == 2) {
+        }
+        else if(ans == 2) { //branch
             System.out.println("You grab a branch off the ground. " +
-                    "You attempt to smack the bear but it breaks upon impact.");
-            System.out.println("Do you...");
+                    "You attempt to smack the bear but it breaks upon impact. Do you...");
             System.out.println("1. Punch the bear's nose \n2. There's still time to run!");
 
             int ans2 = userInput.nextInt();
 
-            if(ans2 == 1) {
-                System.out.println("");
-            } else {
+            if(ans2 == 1) { //punch
+                System.out.println("The bear decides that you are too much work and runs off.");
+                a = 1;
+            }
+            else { //run
                 gameOver();
             }
 
 
-        } else {
+        }
+        else { //eyes
             System.out.println("The bear is stunned and blind now. Do you...");
             System.out.println("1. Punch its nose \n2. Make tons of noise \n3. Slap it");
 
+            int ans2 = userInput.nextInt();
+
+            if(ans2 == 1) { //punch nose
+                System.out.println("The bear decides that you are too much work and runs off.");
+                a = 1;
+            }
+            else if(ans2 == 2) { //noise
+                System.out.println("The bear is wary, unable to see where you are.");
+                System.out.println("It lashes out at you, cutting your leg before running away hastily.");
+                a = 2;
+            }
+            else { //slap
+                System.out.println("The bear laughs as best as a bear can, amused by your lack of respect.");
+                System.out.println("Your slaps are nothing compared to a bears' claws.");
+                gameOver();
+            }
         }
 
 
+        return a;
 
     }
 
@@ -350,6 +390,7 @@ public class Adventure {
         } else if (ans == 2) {
             //choice 2
             System.out.println("You search quickly, scanning the tree line.");
+            System.out.println("After finding a spot, you fall asleep quickly.");
             a = 2;
         } else {
             //choice 3
@@ -379,6 +420,50 @@ public class Adventure {
             //choice 3
             System.out.println("Less than ten minutes later, you collapse. Without food, water, and rest, you cannot continue...");
             gameOver();
+        }
+        return a;
+    }
+
+    public static int fourA() {
+            System.out.println("You wake up the next morning. Do you...");
+            System.out.println("1. Get up and go right  \n2. Search for food ");
+
+        Scanner userInput = new Scanner(System.in);
+         int ans = userInput.nextInt();
+         int a;
+             if (ans == 1) {
+             //choice 1
+                System.out.println("You stand and stretch, continuing your trek.");
+              a = 1;
+         }
+         else {
+              //choice 2
+             System.out.println("You find a bush of berries");
+               a = 3;
+         }
+             return a;
+    }
+
+    public static int fiveA() {
+        System.out.println("The berries are light pink, somewhat suspicious but your stomach is growling. Do you...");
+        System.out.println("1. Eat them \n2. Leave them \n3. Give up and keep walking");
+
+        Scanner userInput = new Scanner(System.in);
+        int ans = userInput.nextInt();
+
+        int a = 0;
+        if (ans == 1) {
+            //choice 1
+            System.out.println("You pick a handful of the berries, gratefully shoving them in your mouth.");
+            a = 1;
+        } else if (ans == 2) {
+            //choice 2
+            System.out.println("You decide not to risk it and continue your search.");
+            a = 2;
+        } else {
+            //choice 3
+            System.out.println("You continue on the previous day's path, walking right.");
+            a = 3;
         }
         return a;
     }
@@ -432,7 +517,7 @@ public class Adventure {
         Scanner userInput = new Scanner(System.in);
         int ans = userInput.nextInt();
 
-        int a = 0;
+        int a;
         if (ans == 1) {
             //choice 1
             System.out.println("You head North.");
@@ -472,6 +557,16 @@ public class Adventure {
             a = 3;
         }
         return a;
+    }
+    
+    
+    //-----------------------ENDINGS-----------------------
+    
+    public static void endingA(){
+        System.out.println("You spot a house in the distance. More than one house, actually. You walk faster towards" +
+                "the small town, smiling at the prospect of rescue. You arrive at the closest home, knocking on the" +
+                " door, cold, tired, and hungry. A lovely old lady opens the door and gives you a look of pity before" +
+                "inviting you in. You're saved!");
     }
 
 
